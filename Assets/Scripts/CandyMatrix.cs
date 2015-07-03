@@ -4,40 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Utils;
 
-///<summary>
-/// 	Clasa <c> CandyMatrix </c> genereaza matricea bomboanelor
-/// 	si realizeaza principalele functionalitati ce sunt in directa
-/// 	legatura cu aceasta
-/// </summary>
-
 public class CandyMatrix : MonoBehaviour {
 	private int _rows = 8;
 	private int _columns = 8;
 	private Vector3[][] _placeHolders;
 	private Candy[][] _candies;
 
-    /// <remarks>
-    /// 	Aceasta functie se apeleaza atunci 
-    /// 	cand obiectul devine <para> enabled </para>
-    /// 	<see cref = "Awake"/> 
-    /// </remarks>
-    /// <summary>
-    /// 	Metoda intitializeaza vectorii
-    /// </summary>
-    /// <members>
-    /// <member name = "_placeHolders">
-    /// 	<summary>
-    /// 		Retine matricea cu pozitiile (abscisa si ordonata) 
-    /// 		la care sunt plasate bomboanele
-    /// 	</summary>
-    /// </member>
-    /// <member name = "_candies">
-    /// 	<summary>
-    /// 		Retine matricea cu instante ale
-    /// 		bomboanelor prezente in joc
-    /// 	</summary>
-    /// </member>
-    /// </members>
 	void Awake() {
 		
 		_placeHolders = new Vector3[_rows][];
@@ -47,11 +19,7 @@ public class CandyMatrix : MonoBehaviour {
 		for (int i = 0; i < _rows; ++i)
 			_candies [i] = new Candy[_columns];
 	}
-    /// <remarks>
-    /// 	Aceasta functie se apeleaza 
-    /// 	la activarea scriptului
-    /// 	Are scopul de a crea matricea
-    /// </remarks>
+
 	void Start() {
 		InitializePlaceHolders();
 		CreateMatrix();
@@ -343,10 +311,6 @@ public class CandyMatrix : MonoBehaviour {
 
 		}
 	}
-	
-
-
-	// condenseaza gaurile (coboara bomboanele de sus in locul nullurilor) si umple random ce ramane
 
 	private IEnumerator FillGaps() {
 		for (int j = 0; j < _columns; ++j) {

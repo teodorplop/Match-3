@@ -2,19 +2,7 @@
 using System.Linq;
 using System.Collections;
 
-public class SoundManager : MonoBehaviour {
-	private static SoundManager _instance;
-	public static SoundManager Instance {
-		get { return _instance; }
-	}
-	void Awake() {
-		if (_instance == null) {
-			_instance = this;
-			DontDestroyOnLoad(gameObject);
-		} else {
-			Destroy(gameObject);
-		}
-	}
+public class SoundManager : Singleton<SoundManager> {
 	void Start() {
 		if (!PlayerPrefs.HasKey ("sound"))
 			PlayerPrefs.SetInt ("sound", 1);
