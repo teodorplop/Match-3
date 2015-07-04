@@ -65,12 +65,21 @@ public class StateMachineHandler : MonoBehaviour {
 			switch (parameters[1]) {
 			case "Enter":
 				state.Enter = CreateDelegate<Func<IEnumerator>>(method, targetMachine);
+				if (state.Enter == null) {
+					state.Enter = State.DoNothingCoroutine;
+				}
 				break;
 			case "Exit":
 				state.Exit = CreateDelegate<Func<IEnumerator>>(method, targetMachine);
+				if (state.Exit == null) {
+					state.Exit = State.DoNothingCoroutine;
+				}
 				break;
 			case "InputHandler":
 				state.InputHandler = CreateDelegate<Action<Vector3>>(method, targetMachine);
+				if (state.InputHandler == null) {
+					state.InputHandler = State.DoNothingInputHandler;
+				}
 				break;
 			}
 		}
@@ -87,14 +96,17 @@ public class StateMachineHandler : MonoBehaviour {
 		}
 
 		var nextState = _stateLookup [newState];
-		StartCoroutine(StateTransition(newState));
+		if (_currentState == nextState) {
+			return;
+		}
+		StartCoroutine(StateTransition(nextState));
 	}
 	IEnumerator StateTransition(State nextState) {
 		if (_currentState != null) {
-			yield return StartCoroutine(_currentState.Exit);
+			yield return StartCoroutine(_currentState.Exit());
 		}
 		_currentState = nextState;
-		yield return StartCoroutine (nextState.Enter);
+		yield return StartCoroutine(nextState.Enter());
 	}
 
 	T CreateDelegate<T>(MethodInfo method, System.Object target) where T : class {
