@@ -6,10 +6,7 @@ public class SoundManager : Singleton<SoundManager> {
 	void Start() {
 		if (!PlayerPrefs.HasKey ("sound"))
 			PlayerPrefs.SetInt ("sound", 1);
-		if (!PlayerPrefs.HasKey ("volume"))
-			PlayerPrefs.SetFloat ("volume", 1);
-
-		VolumeChanged (PlayerPrefs.GetFloat ("volume"));
+		
 		Play (SoundType.Music);
 	}
 
@@ -37,18 +34,10 @@ public class SoundManager : Singleton<SoundManager> {
 			Destroy(go, clip.sound.length);
 		}
 	}
-	public void VolumeChanged(float value) {
-		PlayerPrefs.SetFloat ("volume", value);
-		AudioListener.volume = value;
-	}
 	public void SoundToggle(bool on) {
 		PlayerPrefs.SetInt ("sound", on ? 1 : 0);
 		Destroy (_music);
 		Play (SoundType.Music);
-	}
-
-	void OnLevelWasLoaded() {
-		AudioListener.volume = PlayerPrefs.GetFloat ("volume");
 	}
 }
 
