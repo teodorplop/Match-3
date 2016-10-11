@@ -1,3 +1,3 @@
 # match3
-match3 game
 
+Simple match3 game, made with Unity3D.
