@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
@@ -70,10 +71,10 @@ public class GameManager : MonoBehaviour {
 		_nextLevelButton.SetActive (true);
 	}
 	public void NextLevel() {
-		Application.LoadLevel ("Game");
+		SceneManager.LoadScene("Game");
 	}
 	public void Back() {
-		Application.LoadLevel ("menu");
+		SceneManager.LoadScene("MainMenu");
 	}
 
 	T ScanFor<T>(Vector3 position) {
